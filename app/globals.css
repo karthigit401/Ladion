@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  --bg: #0a0d12;
+  --panel: #11151c;
+  --panel-2: #161b23;
+  --fg: #edeef0;
+  --muted: #8d939c;
+  --accent: #7ca0b3;
+  --accent-strong: #a3c2d1;
+  --line: rgba(237, 238, 240, 0.12);
+  --line-strong: rgba(237, 238, 240, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.font-mono-ladion {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+::selection {
+  background: rgba(124, 160, 179, 0.35);
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium
+      border border-white/15 bg-white/5 text-fg transition-all duration-200
+      hover:border-accent/50 hover:bg-accent/10 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-solid {
+    @apply bg-accent text-[#08111a] font-semibold border-accent shadow-[0_8px_24px_rgba(124,160,179,0.28)]
+      hover:bg-accentStrong hover:border-accentStrong;
+  }
+  .btn-ghost {
+    @apply border-transparent bg-transparent hover:bg-white/5;
+  }
+  .card {
+    @apply rounded-xl border border-white/10 bg-white/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)];
+  }
+  .field-input {
+    @apply w-full rounded-md border border-white/15 bg-black/30 px-3 py-2.5 text-sm text-fg
+      placeholder:text-muted/70 focus:outline-none focus:border-accent/60 focus:ring-2 focus:ring-accent/15;
+  }
+  .field-label {
+    @apply block text-sm text-muted mb-1.5;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-mono-ladion;
+  }
+  .tag {
+    @apply font-mono-ladion text-[11px] text-accentStrong bg-accent/10 border border-accent/25 px-2 py-1 rounded-full;
+  }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes fade-up {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes draw-check {
+  to { stroke-dashoffset: 0; }
+}
+.pop-in { animation: pop-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.fade-up { animation: fade-up 0.45s ease both; }
+.check-path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: draw-check 0.5s 0.3s ease forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .pop-in, .fade-up, .check-path { animation: none; stroke-dashoffset: 0; }
+}
